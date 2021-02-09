@@ -5,7 +5,7 @@ import HamBurger from "./HamBurger.vue";
 export default defineComponent({
   components: {HamBurger},
   props: {
-    showCollapse: {
+    showMenu: {
       type: Boolean,
       default: true
     },
@@ -40,12 +40,12 @@ export default defineComponent({
         <slot name="top-left"/>
         <!--        <ham-burger  style="position: absolute;bottom: 0;left: 0;" :is-open="true"/>-->
       </div>
-      <i :class="collapse?'el-icon-s-unfold':'el-icon-s-fold'" @click="onCollapse"
+      <i v-if="showMenu" :class="collapse?'el-icon-s-unfold':'el-icon-s-fold'" @click="onCollapse"
          style="line-height: 60px;padding: 0 20px;"/>
       <slot name="top-main"/>
     </div>
     <div class="main">
-      <div class="main-left" :style="!showCollapse?'display:none;':collapse?'width: 60px;':'width: 240px;'">
+      <div class="main-left" v-if="showMenu" :style="collapse?'width: 60px;':'width: 240px;'">
         <el-scrollbar>
           <slot name="main-left"/>
         </el-scrollbar>
