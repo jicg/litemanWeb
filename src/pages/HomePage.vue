@@ -43,12 +43,12 @@ export default defineComponent({
               <i :class="m.icon?m.icon:'el-icon-menu'"></i>
               <span>{{ m.name }}</span>
             </template>
-            <el-menu-item :index="ms.code" v-for="ms in m.childList">
+            <el-menu-item @click=handleSelectMenu(ms) :index="ms.code" v-for="ms in m.childList">
               <i :class="ms.icon?ms.icon:'el-icon-document'"></i>
               <template #title>{{ ms.name }}</template>
             </el-menu-item>
           </el-submenu>
-          <el-menu-item :index="m.code" v-else>
+          <el-menu-item :index="m.code" @click=handleSelectMenu(m) v-else>
             <i :class="m.icon?m.icon:'el-icon-document'"></i>
             <template #title><span>{{ m.name }}</span></template>
           </el-menu-item>
@@ -56,6 +56,6 @@ export default defineComponent({
       </el-menu>
     </template>
 
-    <router-view></router-view>
+    <router-view :key="$route.path"/>
   </layout>
 </template>

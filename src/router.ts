@@ -10,13 +10,13 @@ const router = createRouter({ history: createWebHashHistory(), routes: [
             path: '/mod/:code', component: HomePage,
             children: [
                 {
-                    path: 'table/:tableId', component: TablePage
+                    path: 'table/:tableCode', component: TablePage
 
                 }
             ]
         },
         {path: '/login', component: LoginPage},
-        {path: '/table/:tableId', component: TablePage},
+        {path: '/table/:tableCode', component: TablePage},
     ],
 })
 const isAuthenticated = true
