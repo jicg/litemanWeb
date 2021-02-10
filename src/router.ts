@@ -3,6 +3,7 @@ import LoginPage from "./pages/LoginPage.vue";
 import TablePage from "./pages/TablePage.vue";
 import HomePage from "./pages/HomePage.vue";
 import SubSystemPage from "./pages/SubSystemPage.vue";
+import MenuPage from "./pages/MenuPage.vue";
 
 const router = createRouter({ history: createWebHashHistory(), routes: [
         {path: '/', component: SubSystemPage},
@@ -11,7 +12,9 @@ const router = createRouter({ history: createWebHashHistory(), routes: [
             children: [
                 {
                     path: 'table/:tableCode', component: TablePage
-
+                },
+                {
+                    path: 'menu/:menuCode', component: MenuPage
                 }
             ]
         },

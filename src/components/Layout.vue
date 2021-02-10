@@ -32,7 +32,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="wrapper" v-loading="loading"
+  <div class="wrapper"  v-loading="loading"
        element-loading-text="拼命加载中"
        element-loading-spinner="el-icon-loading">
     <div class="top">
@@ -53,8 +53,8 @@ export default defineComponent({
       <div class="container" style="padding: 3px;">
 
         <el-scrollbar>
-          <el-alert v-if="error!=null" type="error">{{ error.message }}</el-alert>
-          <slot/>
+          <el-alert v-if="!loading&&error!=null" type="error">{{ error.message }}</el-alert>
+          <slot v-if="!loading&&error==null"/>
         </el-scrollbar>
       </div>
     </div>
