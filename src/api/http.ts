@@ -1,10 +1,9 @@
 import axios from "axios";
 import * as qs from "qs"
 
-let BaseUrl: String = "http://127.0.0.1:8082"
+let BaseUrl: String = "/api"
 
 class Http {
-
     public post = (url: String, param: JSON) => {
         return axios.post("" + BaseUrl + url, qs.stringify(param), {
             headers: {

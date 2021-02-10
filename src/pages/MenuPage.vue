@@ -17,6 +17,7 @@ export default defineComponent({
 <template>
   <simple-layout :loading="menuData.loading" :error="menuData.error">
     <table-page :table-code="menuData.menu.tableCode" v-if="menuData.menu.tableCode"/>
+    <iframe :src="menuData.menu.uri" v-else></iframe>
   </simple-layout>
 </template>
 <style scoped>

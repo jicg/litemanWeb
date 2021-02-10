@@ -9,5 +9,19 @@ export default defineConfig({
     build: {
         base: "./"
     },
-
+    server: {
+        proxy: {
+            // '/api': 'http://localhost:8082/api',
+            // with options
+            '/api': {
+                target: 'http://localhost:8182/api',
+                changeOrigin: true,
+                rewrite: path => path.replace(/^\/api/, '')
+            }
+        },
+        // hmr: {
+        //     overlay: true
+        // }
+    },
 })
+

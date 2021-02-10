@@ -1,25 +1,21 @@
 import {createRouter, createWebHashHistory} from "vue-router";
-import LoginPage from "./pages/LoginPage.vue";
-import TablePage from "./pages/TablePage.vue";
-import HomePage from "./pages/HomePage.vue";
-import SubSystemPage from "./pages/SubSystemPage.vue";
-import MenuPage from "./pages/MenuPage.vue";
 
-const router = createRouter({ history: createWebHashHistory(), routes: [
-        {path: '/', component: SubSystemPage},
+const router = createRouter({
+    history: createWebHashHistory(), routes: [
+        {path: '/', component:() =>  import("./pages/SubSystemPage.vue")},
         {
-            path: '/mod/:code', component: HomePage,
+            path: '/mod/:code', component: () =>import("./pages/HomePage.vue"),
             children: [
                 {
-                    path: 'table/:tableCode', component: TablePage
+                    path: 'table/:tableCode', component:() => import("./pages/TablePage.vue")
                 },
                 {
-                    path: 'menu/:menuCode', component: MenuPage
+                    path: 'menu/:menuCode', component:() => import("./pages/MenuPage.vue")
                 }
             ]
         },
-        {path: '/login', component: LoginPage},
-        {path: '/table/:tableCode', component: TablePage},
+        {path: '/login', component: import("./pages/LoginPage.vue")},
+        {path: '/table/:tableCode', component: import("./pages/TablePage.vue")},
     ],
 })
 const isAuthenticated = true

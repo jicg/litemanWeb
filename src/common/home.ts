@@ -47,10 +47,10 @@ export function getMenus() {
     };
 
     let handleOpen = (key: String, keyPath: String) => {
-        console.log(key, keyPath);
+        // console.log(key, keyPath);
     };
     let handleClose = (key: String, keyPath: String) => {
-        console.log(key, keyPath);
+        // console.log(key, keyPath);
     }
 
     return {menusData, handleOpen, handleClose, handleSelect, handleSelectMenu};
