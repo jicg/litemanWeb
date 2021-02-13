@@ -1,35 +1,13 @@
 <script lang="ts">
-import {defineComponent, toRaw, shallowReactive} from "vue";
+import {defineComponent, toRaw, shallowReactive, computed, ref} from "vue";
+import {getLogin} from "../common/login";
 
 export default defineComponent({
   props: {},
   setup(props, ctx) {
-    const onLogin = function () {
-      console.log(toRaw(user));
+    return {
+      ... getLogin(props,ctx)
     }
-    const user = shallowReactive({
-      name: '',
-      pwd: '',
-    });
-    const rules = {
-      name: [
-        {required: true, message: '请输入用户名', trigger: 'blur'},
-      ],
-      pwd: [
-        {required: true, message: '请输入密码', trigger: 'blur'},
-        {min: 6, message: '长度必须大于6', trigger: 'blur'}
-      ],
-    }
-    return {user, rules, onLogin};
-  },
-  methods: {
-    submitForm: function ()  {
-      console.log(this);
-      this.$refs['form'].validate(valid => {
-        if (!valid) return false;
-        this.onLogin();
-      });
-    },
   },
   name: "LoginPage"
 });

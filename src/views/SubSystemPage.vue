@@ -1,6 +1,6 @@
 <script lang="ts">
 import {defineComponent} from "vue";
-import {getSystems, SubSystem} from "../common/sub_system";
+import {getSystems, SubSystem} from "../common/subSystem";
 import Layout from "../components/Layout.vue";
 
 export default defineComponent({

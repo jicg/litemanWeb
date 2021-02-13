@@ -54,11 +54,12 @@ export default defineComponent({
 
         <el-scrollbar>
           <el-alert v-if="!loading&&error!=null" type="error">{{ error.message }}</el-alert>
-          <slot v-if="!loading&&error==null"/>
+          <slot v-if="error==null"/>
         </el-scrollbar>
       </div>
     </div>
   </div>
+
 </template>
 <style scoped>
 .wrapper {
