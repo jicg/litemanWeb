@@ -86,7 +86,7 @@ export default defineComponent({
 
 .main {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 60px);
   padding-top: 60px;
   display: flex;
 }

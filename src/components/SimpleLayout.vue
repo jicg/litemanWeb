@@ -18,7 +18,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <el-container v-if="error==null" v-loading="loading"
+  <el-container direction="vertical" v-if="error==null" v-loading="loading"
                 style="min-height: 200px;"
                 element-loading-text="拼命加载中"
                 element-loading-spinner="el-icon-loading">
@@ -26,6 +26,6 @@ export default defineComponent({
     <slot></slot>
 
   </el-container>
-  <el-alert v-if="!loading&&error!=null" type="error">{{ error.message }}</el-alert>
+  <el-alert v-if="!loading&&error!=null" type="error">{{error +" "+ error?.response?.data?.message }}</el-alert>
 </template>
 

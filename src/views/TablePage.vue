@@ -3,9 +3,10 @@ import {ref, computed, onMounted, defineComponent} from "vue";
 import {getTable} from "../common/table";
 import SimpleLayout from "../components/SimpleLayout.vue";
 import ListQuery from "../components/ListQuery.vue";
+import ListData from "../components/ListData.vue";
 
 export default defineComponent({
-  components: {ListQuery, SimpleLayout},
+  components: {ListData, ListQuery, SimpleLayout},
   props: {
     tableCode: {
       type: String,
@@ -22,11 +23,16 @@ export default defineComponent({
 
 <template>
   <simple-layout :loading="tableData.loading" :error="tableData.error">
-    <el-container ref="root" v-loading="tableData.loading"
-                  style="min-height: 200px;"
+    <el-container  direction="vertical" ref="root" v-loading="tableData.loading"
+                  style="min-height: 200px;width: 100%;padding: 6px;"
                   element-loading-text="拼命加载中"
                   element-loading-spinner="el-icon-loading">
-      <list-query :qs="qs" @query="query"></list-query>
+      <div class="el-border">
+        <list-query :qs="qs" @query="query"/>
+      </div>
+      <div class="el-border" style="margin-top: 6px;">
+        <list-data></list-data>
+      </div>
     </el-container>
   </simple-layout>
 </template>
