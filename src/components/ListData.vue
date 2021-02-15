@@ -4,7 +4,7 @@ import {defineComponent, ref, shallowReactive} from "vue";
 export default defineComponent({
   props: {},
   setup(props, ctx) {
-    let multipleSelection = null
+    let multipleSelection = null;
     const handleSelectionChange = (val) => {
       multipleSelection = val;
       console.log(multipleSelection)
@@ -59,7 +59,7 @@ export default defineComponent({
         name: '王小虎',
         address: '上海市普陀区金沙江路 1518 弄'
       }],
-      multipleSelection: [], handleSelectionChange, formatter, handleSortChange, getSummaries,
+       handleSelectionChange, formatter, handleSortChange, getSummaries,
       handleSizeChange, handleCurrentChange, currentPage
 
     }

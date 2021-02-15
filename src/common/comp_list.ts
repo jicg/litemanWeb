@@ -2,6 +2,12 @@ export interface ListQuery {
     label: string,
     name: string,
     type: QueryType,
+    options?: Option[],
+}
+
+export interface Option {
+    label: string,
+    value: string,
 }
 
 export enum QueryType {

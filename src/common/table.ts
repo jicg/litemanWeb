@@ -2,7 +2,7 @@ import {useRoute, useRouter} from "vue-router";
 import http from "../api/http";
 import {computed, shallowReactive} from "vue";
 import {SetupContext} from "@vue/runtime-core";
-import {ListQuery, QueryType} from "./comp_list";
+import {ListQuery, QueryType, Option} from "./comp_list";
 
 //region
 export interface ColumnAttrEntity {
@@ -24,7 +24,23 @@ export interface ColumnEntityList {
     columnType: string;
     defVal: string;
     columnAttrEntity: ColumnAttrEntity;
+    columnSelect?: ColumnSelect;
     columnLink?: string;
+    active: boolean;
+}
+
+export interface SelectOption {
+    id: number;
+    label: string;
+    value: string;
+    active: boolean;
+}
+
+export interface ColumnSelect {
+    id: number;
+    label: string;
+    code: string;
+    selectOptions: SelectOption[];
     active: boolean;
 }
 
@@ -44,13 +60,23 @@ export function getQs(table: Table) {
     //public enum ColumnType {Int, String, Float, Boolean, Date, Clob,Auto }
     return table.columnEntityList.map<ListQuery>(column => {
         let type = QueryType.Str;
+        let options = [] as Option[];
         if (column.columnType == "Date") {
             type = QueryType.Date
+        } else if (column.columnType == "Select") {
+            type = QueryType.Select;
+            options = column.columnSelect?.selectOptions.map<Option>(it => {
+                return {
+                    label: it.label,
+                    value: it.value,
+                };
+            }) || [];
         }
         return {
             name: column.name,
             label: column.label,
             type: type,
+            options: options,
         };
     });
 }

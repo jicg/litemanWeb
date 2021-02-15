@@ -32,8 +32,8 @@ export default defineComponent({
       </template>
       <el-input  v-if="query.type===QueryType.Str" v-model="form[query.name]"></el-input>
       <el-select  v-if="query.type===QueryType.Select" v-model="form[query.name]" >
-        <!--          <el-option v-for="(op,_) in c.colAttr.limitValueList" :label="op.description"-->
-        <!--                     :value="op.value"></el-option>-->
+                  <el-option v-for="(op,_) in query.options" :label="op.label"
+                             :value="op.value"></el-option>
       </el-select>
       <el-date-picker
           v-if="query.type===QueryType.Date"
