@@ -3,6 +3,7 @@ export interface ListQuery {
     name: string,
     type: QueryType,
     options?: Option[],
+    optionDef: String
 }
 
 export interface Option {

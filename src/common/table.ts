@@ -24,9 +24,14 @@ export interface ColumnEntityList {
     columnType: string;
     defVal: string;
     columnAttrEntity: ColumnAttrEntity;
-    columnSelect?: ColumnSelect;
+    selectUse?: ColumnSelectUse;
     columnLink?: string;
     active: boolean;
+}
+
+export interface ColumnSelectUse {
+    columnSelect: ColumnSelect;
+    columnSelectDef?: String;
 }
 
 export interface SelectOption {
@@ -55,17 +60,19 @@ export interface Table {
     active: boolean;
 }
 
-export function getQs(table: Table) {
+export function getQs(table: Table): ListQuery[] {
     if (!table.columnEntityList) return [];
     //public enum ColumnType {Int, String, Float, Boolean, Date, Clob,Auto }
     return table.columnEntityList.map<ListQuery>(column => {
         let type = QueryType.Str;
         let options = [] as Option[];
+        let optionDef: String = "";
         if (column.columnType == "Date") {
             type = QueryType.Date
         } else if (column.columnType == "Select") {
             type = QueryType.Select;
-            options = column.columnSelect?.selectOptions.map<Option>(it => {
+            optionDef = column.selectUse?.columnSelectDef || "";
+            options = column.selectUse?.columnSelect?.selectOptions.map<Option>(it => {
                 return {
                     label: it.label,
                     value: it.value,
@@ -77,6 +84,7 @@ export function getQs(table: Table) {
             label: column.label,
             type: type,
             options: options,
+            optionDef: optionDef
         };
     });
 }
@@ -92,22 +100,24 @@ export function getTable(props: any, ctx: SetupContext) {
         table: {} as Table,
         loading: true,
         error: null,
+        qs: [] as ListQuery[],
+
     })
     http.getObj<Table>("/sys/table/" + tableCode).then(ret => {
-        tableData.loading = false;
         tableData.table = ret;
+        tableData.qs = getQs(ret);
+        tableData.loading = false;
     }).catch(e => {
         tableData.error = e;
         tableData.loading = false;
     })
 
-    let qs = computed(() => getQs(tableData.table));
+    // let qs = computed(() => getQs(tableData.table));
 
     let query = (data: any) => {
         console.log(data);
     }
-
-    return {tableData, tableCode, qs, query};
+    return {tableData, tableCode, query};
 }
 
 //endregion

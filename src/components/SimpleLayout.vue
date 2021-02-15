@@ -22,9 +22,7 @@ export default defineComponent({
                 style="min-height: 200px;"
                 element-loading-text="拼命加载中"
                 element-loading-spinner="el-icon-loading">
-
     <slot></slot>
-
   </el-container>
   <el-alert v-if="!loading&&error!=null" type="error">{{error +" "+ error?.response?.data?.message }}</el-alert>
 </template>

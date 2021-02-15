@@ -28,7 +28,7 @@ export default defineComponent({
                   element-loading-text="拼命加载中"
                   element-loading-spinner="el-icon-loading">
       <div class="el-border">
-        <list-query :qs="qs" @query="query"/>
+        <list-query :qs="tableData.qs" @query="query"/>
       </div>
       <div class="el-border" style="margin-top: 6px;">
         <list-data></list-data>

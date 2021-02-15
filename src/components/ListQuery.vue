@@ -1,24 +1,41 @@
 <script lang="ts">
-import {defineComponent, PropType, ref, toRaw} from "vue";
+import {defineComponent, onMounted, PropType, ref, toRaw, watch} from "vue";
 import {ListQuery, QueryType, shortcuts} from "../common/comp_list";
 import TextTooltip from "./TextTooltip.vue";
+import {SetupContext} from "@vue/runtime-core";
 
+interface ListQueryProps {
+  qs: ListQuery[]
+}
+
+function getListQuery(props: ListQueryProps, ctx: SetupContext) {
+  let form = ref({});
+  const onQuery = () => {
+    ctx.emit("query", toRaw(form.value));
+  }
+  watch(props, props => {
+    let qs = props.qs;
+    for (let i = 0; i < qs.length; i++) {
+      let q = qs[i];
+      if (q.optionDef) {
+        form.value[q.name] = q.optionDef;
+      }
+    }
+  });
+  return {form, QueryType, shortcuts, onQuery};
+}
 
 export default defineComponent({
   components: {TextTooltip},
   props: {
     qs: {
       type: Array as PropType<Array<ListQuery>>,
-      default: [] as ListQuery[]
-    }
+      required: true,
+    },
   },
   emits: ["query"],
   setup(props, ctx) {
-    let form = ref({});
-    const onQuery = () => {
-      ctx.emit("query", toRaw(form.value));
-    };
-    return {form, onQuery, QueryType, shortcuts};
+    return {...getListQuery(props, ctx)};
   },
   name: "ListQuery",
 });
@@ -30,10 +47,10 @@ export default defineComponent({
       <template #label>
         <text-tooltip :content="query.label">{{ query.label }}</text-tooltip>
       </template>
-      <el-input  v-if="query.type===QueryType.Str" v-model="form[query.name]"></el-input>
-      <el-select  v-if="query.type===QueryType.Select" v-model="form[query.name]" >
-                  <el-option v-for="(op,_) in query.options" :label="op.label"
-                             :value="op.value"></el-option>
+      <el-input v-if="query.type===QueryType.Str" v-model="form[query.name]"></el-input>
+      <el-select v-if="query.type===QueryType.Select" v-model="form[query.name]" :data-value="query.optionDef">
+        <el-option v-for="(op,_) in query.options" :label="op.label"
+                   :value="op.value"></el-option>
       </el-select>
       <el-date-picker
           v-if="query.type===QueryType.Date"
