@@ -1,6 +1,6 @@
 <script lang="ts">
 import {defineComponent, toRaw, shallowReactive, computed, ref} from "vue";
-import {getLogin} from "../common/login";
+import {getLogin} from "./login";
 
 export default defineComponent({
   props: {},

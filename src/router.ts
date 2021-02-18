@@ -14,7 +14,7 @@ const router = createRouter({
                 }
             ]
         },
-        {path: '/login', component: import("./views/LoginPage.vue")},
+        {path: '/login', component: import("./views/login/LoginPage.vue")},
         {path: '/table/:tableCode', component: import("./views/TablePage.vue")},
     ],
 })
